@@ -1,0 +1,4 @@
+*.cc linguist-generated=true
+*.cmake linguist-generated=true
+pubspec.lock linguist-generated=true
+Gemfile.lock linguist-generated=true
