@@ -1,6 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:floor/floor.dart';
 
+@Entity(tableName: 'projects')
 class Project extends Equatable {
+  @primaryKey
   final int id;
   final String name;
   final String description;
