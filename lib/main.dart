@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_offline_support_with_stock/data/project_repository.dart';
 import 'package:supabase_offline_support_with_stock/data/project_supabase_remote_source.dart';
+import 'package:supabase_offline_support_with_stock/utils/database_provider.dart';
 import 'package:supabase_offline_support_with_stock/utils/supabase_client_provider.dart';
 
 void main() async {
   final supabaseClient = await SupabaseClientProvider().getClient();
-  ProjectSupabaseRemoteSource(supabaseClient)
-      .getRemoteProjectsStream()
-      .listen((projects) => print('Remote Projects $projects'));
+  final databaseClient = await DatabaseProvider().getDataBase();
+  final remoteSource = ProjectSupabaseRemoteSource(supabaseClient);
+  final localSource = databaseClient.projectLocalSource;
+  ProjectRepository(localSource, remoteSource)
+      .getProjects()
+      .listen((projects) => print('OSS Projects $projects'));
   runApp(const MyApp());
 }
 
